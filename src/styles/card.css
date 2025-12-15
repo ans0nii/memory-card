@@ -1,12 +1,14 @@
 .gif-title {
-  border: solid purple;
   padding: 10px;
   width: 90%;
 }
 
 .img-border {
-  border: solid blue;
   height: 200px;
   width: 100%;
   object-fit: cover;
+}
+
+.single-card:hover {
+  border: solid blue;
 }

@@ -28,3 +28,7 @@
     gap: 1rem;
   }
 }
+
+.cards{
+    border: solid white;
+}
