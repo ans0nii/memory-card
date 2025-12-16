@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "./Card";
 
-function Game() {
-  const [score, setScore] = useState(0);
+function Game({score,setScore}) {
   const [clickedIds, setClickedIds] = useState([]);
   const [gif, setGif] = useState([]);
 
@@ -17,8 +16,6 @@ function Game() {
   }
 
   useEffect(() => {
-    console.log(score);
-    console.log(clickedIds);
     const API_KEY = "GYp6WkATde2qRgyL6GswXqjoq6DFGUJA";
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=spider-man&limit=12`;
 
@@ -31,7 +28,13 @@ function Game() {
           title: gif.title,
         }));
         setGif(gifData);
+        console.log(gif);
       });
+  }, []);
+
+  useEffect(() => {
+    console.log("Score:", score);
+    console.log("Clicked Ids:", clickedIds);
   }, [score, clickedIds]);
 
   function shuffleCards() {
