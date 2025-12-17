@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 import Card from "./Card";
 
-function Game({score,setScore}) {
+function Game({ score, setScore, highScore, setHighScore }) {
   const [clickedIds, setClickedIds] = useState([]);
   const [gif, setGif] = useState([]);
+  const newScore = score + 1;
 
   function handleCardClick(id) {
     if (!clickedIds.includes(id)) {
       setClickedIds([...clickedIds, id]);
-      setScore(score + 1);
+      setScore(newScore);
+
+      if (newScore > highScore) {
+        setHighScore(newScore);
+      }
     } else {
       setScore(0);
+      setClickedIds([]);
     }
     shuffleCards();
   }
