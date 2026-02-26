@@ -3,7 +3,7 @@ import Card from "./Card";
 
 function Game({ score, setScore, highScore, setHighScore }) {
   const [clickedIds, setClickedIds] = useState([]);
-  const [gif, setGif] = useState([]);
+  const [gifs, setGifs] = useState([]);
   const newScore = score + 1;
 
   function handleCardClick(id) {
@@ -22,37 +22,34 @@ function Game({ score, setScore, highScore, setHighScore }) {
   }
 
   useEffect(() => {
-    const API_KEY = "GYp6WkATde2qRgyL6GswXqjoq6DFGUJA";
+    const API_KEY = import.meta.env.VITE_GIPHY_API_KEY;
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=spider-man&limit=12`;
 
     fetch(url)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch gifs");
+        return response.json();
+      })
       .then((data) => {
-        const gifData = data.data.map((gif) => ({
+        const gifsData = data.data.map((gif) => ({
           id: gif.id,
           url: gif.images.original.url,
           title: gif.title,
         }));
-        setGif(gifData);
-        console.log(gif);
+        setGifs(gifsData);
       });
   }, []);
 
-  useEffect(() => {
-    console.log("Score:", score);
-    console.log("Clicked Ids:", clickedIds);
-  }, [score, clickedIds]);
-
   function shuffleCards() {
-    const shuffled = [...gif];
+    const shuffled = [...gifs];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    setGif(shuffled);
+    setGifs(shuffled);
   }
 
-  if (!gif.length)
+  if (!gifs.length)
     return (
       <section className="loading">
         <p> Loading...</p>{" "}
@@ -61,7 +58,7 @@ function Game({ score, setScore, highScore, setHighScore }) {
 
   return (
     <div className="card-grid">
-      {gif.map((g) => (
+      {gifs.map((g) => (
         <Card key={g.id} gif={g} onClick={handleCardClick} />
       ))}
     </div>

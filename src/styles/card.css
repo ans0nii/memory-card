@@ -12,3 +12,7 @@
 .single-card:hover {
   border: solid blue;
 }
+
+.single-card:focus {
+  outline: none;
+}

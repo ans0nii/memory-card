@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 import Game from "./components/Game";
@@ -13,8 +13,10 @@ function App() {
     <>
       <header className="header">
         <h1>Memory Card Game</h1>
-        <h2 className="score">Score: {score} </h2>
-        <h3 className="highscore">High score: {highScore}</h3>
+        <h2 className="highscore">
+          High score: <span id="hs-number"> {highScore}</span>
+        </h2>
+        <h3 className="score">Current Score: {score} </h3>
 
         <Game
           score={score}

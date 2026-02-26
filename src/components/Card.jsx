@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 function Card({ gif, onClick }) {
   return (
     <button className="single-card" onClick={() => onClick(gif.id)}>
